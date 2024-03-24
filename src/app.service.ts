@@ -5,4 +5,7 @@ export class AppService {
   getHello(): string {
     return 'Hello nest!';
   }
+  getHi(): string {
+    return 'Hi Nest';
+  }
 }
