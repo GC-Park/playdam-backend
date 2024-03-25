@@ -62,12 +62,25 @@ describe('MoviesService', () => {
     });
 
     it('should return a 404', () => {
-      try{
+      try {
         service.deleteOne(99999);
-      }catch(e){
+      } catch (e) {
         expect(e).toBeInstanceOf(NotFoundException);
         expect(e.message).toEqual('Movie with ID 99999 not found.');
       }
-    })
-  }); 
+    });
+  });
+
+  describe('create', () => {
+    it('should create a movie', () => {
+      const beforeCreate = service.getAll().length;
+      service.create({
+        title: 'Test title',
+        genres: ['test'],
+        year: 2020,
+      });
+      const afterCreate = service.getAll().length;
+      expect(afterCreate).toBeGreaterThan(beforeCreate);
+    });
+  });
 });
