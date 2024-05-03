@@ -25,9 +25,16 @@ import { User } from 'src/auth/user.entity';
 export class BoardsController {
   constructor(private boardsService: BoardsService) {}
 
+  // 모든 유저의 게시물 가져오기
+  // @Get('/')
+  // getAllBoard(): Promise<Board[]> {
+  //   return this.boardsService.getAllBoards();
+  // }
+
+  // 해당 유저의 게시물만 가져오기
   @Get('/')
-  getAllBoard(): Promise<Board[]> {
-    return this.boardsService.getAllBoards();
+  getAllBoard(@GetUser() user: User): Promise<Board[]> {
+    return this.boardsService.getAllBoards(user);
   }
 
   @Post()
