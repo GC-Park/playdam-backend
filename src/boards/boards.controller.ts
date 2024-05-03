@@ -51,9 +51,18 @@ export class BoardsController {
     return this.boardsService.getBoardById(id);
   }
 
+  // @Delete('/:id')
+  // deleteBoard(@Param('id', ParseIntPipe) id: number): Promise<void> {
+  //   return this.boardsService.deleteBoard(id);
+  // }
+
+  // 자신이 생성한 게시물을 삭제하기
   @Delete('/:id')
-  deleteBoard(@Param('id', ParseIntPipe) id: number): Promise<void> {
-    return this.boardsService.deleteBoard(id);
+  deleteBoard(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.boardsService.deleteBoard(id, user);
   }
 
   @Patch('/:id/status')

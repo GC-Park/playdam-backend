@@ -55,10 +55,21 @@ export class BoardsService {
     return found;
   }
 
-  async deleteBoard(id: number): Promise<void> {
-    const result = await this.boardRepository.delete(id);
+  // async deleteBoard(id: number): Promise<void> {
+  //   const result = await this.boardRepository.delete(id);
 
-    console.log('result', result);
+  //   if (result.affected === 0) {
+  //     throw new NotFoundException(`Can't find Board with id: ${id}`);
+  //   }
+  // }
+
+  // 자신이 생성한 게시물을 삭제하기
+  async deleteBoard(id: number, user: User): Promise<void> {
+    const result = await this.boardRepository.delete({ id, user });
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Can't find Board with id: ${id}`);
+    }
   }
 
   async updateBoardStatus(id: number, status: BoardStatus): Promise<Board> {
